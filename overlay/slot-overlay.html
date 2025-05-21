@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      font-size: 50px;
+      text-align: center;
+      background-color: transparent;
+      color: white;
+      font-family: sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div id="slot">🎰 | 🎰 | 🎰</div>
+
+  <script>
+    const ws = new WebSocket('ws://localhost:8080');
+    ws.onmessage = (event) => {
+      const daten = JSON.parse(event.data);
+      if (daten.typ === 'slot') {
+        document.getElementById('slot').textContent = daten.inhalt.join(' | ');
+      }
+    };
+  </script>
+</body>
+</html>
